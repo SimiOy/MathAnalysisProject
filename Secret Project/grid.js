@@ -84,17 +84,20 @@ function Grid(){
 				line(sj, 0, sj, windowHeight);
 			}
 			if(x){
+				p.y = max(p.y, 0);
+				p.y = min(p.y, windowHeight - 30);
 				noStroke();
 				fill('white');
 				ellipse(p.x, p.y + 15, 10, 13);
 				fill('black');
 				textSize(15);
 				textAlign(CENTER);
-				if(this.grid_norm>=1)
-						text( round(x).toString(), p.x, p.y +20 );
+				if(this.grid_norm>=1){
+					text( x.toString(), p.x, p.y +20 );
+				}
 				else{
-						var rx = round(x*this.decimalNumber)/this.decimalNumber;
-						text( rx.toString(), p.x, p.y +20 );
+					var rx = round(x*this.decimalNumber)/this.decimalNumber;
+					text( rx.toString(), p.x, p.y +20 );
 				}
 			}
 		}
@@ -120,7 +123,7 @@ function Grid(){
 				textSize(15);
 				textAlign(CENTER);
 				if(this.grid_norm>=1)
-						text( round(x).toString(), p.x, p.y +20 );
+						text( x.toString(), p.x, p.y +20 );
 				else{
 						var rx = round(x*this.decimalNumber)/this.decimalNumber;
 						text( rx.toString(), p.x, p.y +20 );
@@ -144,15 +147,15 @@ function Grid(){
 			if(y){
 				noStroke();
 				fill('white');
-				ellipse(p.x + 25, p.y, 30, 10);
+				ellipse(max(p.x, 0) + 25, p.y, 25, 10);
 				fill('black');
 				textSize(15);
 				textAlign(CENTER);
 				if(this.grid_norm>=1)
-						text( round(-y).toString(), p.x + 24, p.y + 4 );
+						text( (-y).toString(), max(p.x, 0) + 24, p.y + 4 );
 				else{
 						var ry = round(-y*this.decimalNumber)/this.decimalNumber;
-						text( ry.toString(), p.x + 24, p.y + 4 );
+						text( ry.toString(), max(p.x, 0) + 24, p.y + 4 );
 				}
 			}
 		}
@@ -173,15 +176,15 @@ function Grid(){
 			if(y){
 				noStroke();
 				fill('white');
-				ellipse(p.x + 25, p.y, 30, 10);
+				ellipse( max(p.x, 0) + 25, p.y, 20, 10);
 				fill('black');
 				textSize(15);
 				textAlign(CENTER);
 				if(this.grid_norm>=1)
-						text( round(-y).toString(), p.x + 24, p.y + 4 );
+						text( (-y).toString(), max(p.x, 0) + 24, p.y + 4 );
 				else{
 						var ry = round(-y*this.decimalNumber)/this.decimalNumber;
-						text( ry.toString(), p.x + 24, p.y + 4 );
+						text( ry.toString(), max(p.x, 0) + 24, p.y + 4 );
 				}
 			}
 		}
