@@ -1,7 +1,9 @@
 function Animation()
 {
 	this.speed = 50;
-
+	this.sx = 0;
+	this.sy = 0;
+	this.wy = 0;
 	this.start = function(a, b, law )
 	{
 		this.a = a;
@@ -15,21 +17,15 @@ function Animation()
 			this.speed *= -1;
 		var dx = 1/this.speed;
 		this.wx += dx;
-		var wy = this.law(this.wx);
-		var sx = worldToScreen(this.wx, 0).x;
-		var sy = worldToScreen(0, wy).y;
-		return { 
-			x: sx,
-			y: sy
-		};
+		this.wy = this.law(this.wx);
+		this.sx = worldToScreen(this.wx, 0).x;
+		this.sy = worldToScreen(0, this.wy).y; 
 	}
 	this.draw = function()
 	{
-		var x = this.update().x;
-		var y = this.update().y;
 		noStroke();
 		fill('red');
-		ellipse(x, y, .5*scaleX, .5*scaleY);
+		ellipse(this.sx, this.sy, .5*scaleX, .5*scaleY);
 		noFill();
 		stroke('black');
 	}
