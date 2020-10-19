@@ -66,7 +66,7 @@ function draw(){
 			Alpha = 0;
 	}
 
-	grid.update(offsetX, offsetY, scaleX, scaleY);
+	grid.update();
 	grid.draw();
 
 	plot(-1, 10, marcel, 'green');
