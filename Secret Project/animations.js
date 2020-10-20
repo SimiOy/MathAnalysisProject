@@ -25,7 +25,19 @@ function Animation()
 	{
 		noStroke();
 		fill('red');
-		ellipse(this.sx, this.sy, .5*scaleX, .5*scaleY);
+		var pSize = .5*scaleX;
+		ellipse(this.sx, this.sy, pSize, pSize);
+
+		for (let i = 0; i<obstacles.length;i++) {
+			obstacles[i].collider.createLine(this.sx,this.sy);
+
+			if(obstacles[i].type == 1)
+			{
+				//circle
+				obstacles[i].collider.circleCollider(this.sx,this.sy,pSize/2);
+			}
+		}
+
 		noFill();
 		stroke('black');
 	}
