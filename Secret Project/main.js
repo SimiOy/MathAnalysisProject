@@ -18,6 +18,8 @@ function setup(){
 	grid = new Grid();
 	grid.update(offsetX, offsetY, scaleX, scaleY);
 	boundry = 0.8;
+
+	UIScreen = new GUI();
 }
 
 var grid;
@@ -32,7 +34,12 @@ var animation;
 var mode = 0;
 var Alpha;
 
+var UIScreen;
+
 function draw(){
+
+	strokeWeight(1);
+	
 
 	background('white');
 
@@ -66,16 +73,38 @@ function draw(){
 			Alpha = 0;
 	}
 
-	grid.update();
+	grid.update(offsetX, offsetY, scaleX, scaleY);
 	grid.draw();
+
+	for(let i = 0;i<obstacleIndex;i++)
+	{
+		obstacles[i].updatetime();
+	}
+
 
 	plot(-1, 10, marcel, 'green');
 	animation.draw();
+
+	UIScreen.draw();
+
 }
+
+var obstacles=[];
+var obstacleIndex = 0;
 
 function mouseClicked()
 {
 	console.log( screenToWorld(mouseX, mouseY).x, screenToWorld(mouseX, mouseY).y );
+
+	//ignore drags, press control and click to spawn objects of latest type selected
+	if(keyIsDown(17))
+	{
+		//preview
+		
+		obstacles[obstacleIndex] = new SceneObject();
+		obstacles[obstacleIndex].init(mouseX,mouseY,currentShape);
+		obstacleIndex++;
+	}
 }
 
 function mouseDragged()
@@ -110,12 +139,34 @@ function screenToWorld( screenX, screenY ){
 		 	y: (screenY/scaleY + offsetY) };
 }
 
+
+var currentShape = 0;
+
 function keyPressed()
 {
 	if(keyCode == 32){
 		mode= !mode;
 		console.log('Hi');
 	}
+	else
+		if(keyCode == 49)
+		{
+			//square
+			currentShape = 0;
+		}
+	else
+		if(keyCode == 50)
+		{
+			//circle
+			currentShape = 1;
+		}
+	else
+		if(keyCode == 51)
+		{
+			//rect
+			currentShape = 2;
+		}
+	UIScreen.addImage(currentShape);
 }
 
 function plot( a, b, law, color )
