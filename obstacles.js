@@ -4,17 +4,23 @@ function SceneObject()
 	this.xPos = 0;
 	this.yPos = 0;
 	//rotation in the future
+	this.collider;
+
 	//maybe manual scaling dunno yet if necessary
 	this.init = function(mouseXPos,mouseYPos,source)
 	{
 		this.type = source;
 		this.xPos = screenToWorld(mouseXPos,0).x;
 		this.yPos = screenToWorld(0,mouseYPos).y;
+		this.collider = new Collider();
 	}
 	this.updatetime = function()
 	{
 		var shaep = worldToScreen(this.xPos,this.yPos);
 		noStroke();
+
+		this.collider.getObstacleCord(shaep.x,shaep.y);
+
 		if(this.type == 0)
 		{
 			fill('yellow');
@@ -23,7 +29,10 @@ function SceneObject()
 		else
 			if(this.type == 1)
 			{
-				fill('cyan');
+				noFill();
+				strokeWeight(5);
+				stroke('cyan');
+				//circle
 				ellipse(shaep.x, shaep.y, 1.2*scaleX, 1.2*scaleY );
 			}
 		else
