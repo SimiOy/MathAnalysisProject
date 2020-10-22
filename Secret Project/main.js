@@ -1,4 +1,3 @@
-
 function setup(){
 	createCanvas(windowWidth, windowHeight);
 	offsetX = -windowWidth/2;
@@ -14,14 +13,14 @@ function setup(){
 	offsetY += (c0.x - c1.y);
 
 	animation = new Animation();
-	animation.start(0, 10, marcel);
+	animation.start(-10, 10, marcel);
 	grid = new Grid();
 	grid.update(offsetX, offsetY, scaleX, scaleY);
 	boundry = 0.8;
 
 	UIScreen = new GUI();
+	UIScreen.addImage(0);
 }
-
 var grid;
 var worldMouseX0 = 0, worldMouseY0 = 0;
 var worldMouseX1 = 0, worldMouseY1 = 0;
@@ -33,84 +32,107 @@ var boundry;
 var animation;
 var mode = 0;
 var Alpha;
-
+var speed = 8;
+var running = 0;
 var UIScreen;
 
 function draw(){
 
 	strokeWeight(1);
-	
+	switch(running){
+		case 0: { //running
+			background('white');
+			if(mode){
 
-	background('white');
+				var centerX = screenToWorld(windowWidth/2, 0).x;
+				offsetX += (animation.wx - centerX); //Fix xCoord to animation
 
-	animation.update();
+				var centerY = screenToWorld(0, windowHeight/2).y;
+				var hTop = animation.wy + boundry;
+				var hBottom = animation.wy - boundry;
 
-	if(mode){
+				if(centerY>hTop){ //Fix yCoord to animation
+					offsetY -= lerp(0, centerY - hTop, Alpha);
+					Alpha += 0.02;
+				}
+				else if(centerY<hBottom)
+				{
+					offsetY += lerp(0, hBottom - centerY, Alpha);
+					Alpha += 0.02;
+				}
+				else
+					Alpha = 0;
+			}
 
-		var centerX = screenToWorld(windowWidth/2, 0).x;
-		var centerY = screenToWorld(0, windowHeight/2).y;
+			grid.update();
+			grid.draw();
 
-		offsetX += (animation.wx - centerX);
-		var hTop = animation.wy + boundry;
-		var hBottom = animation.wy - boundry;
-		//fill('green');
-		//noStroke();
-		//ellipse(animation.sx, worldToScreen(0, hTop).y, 50, 50);
-		//ellipse(animation.sx, worldToScreen(0, hBottom).y, 50, 50);
-		//ellipse(windowWidth/2, windowHeight/2, 20, 20);
-		//noFill();
+			for(let i = 0;i<obstacleIndex;i++)
+			{
+				obstacles[i].draw();
+			}
 
-		if(centerY>hTop){
-			offsetY -= lerp(0, centerY - hTop, Alpha);
-			Alpha += 0.02;
+			if(keyIsDown(17))
+			{
+				if(mouseIsPressed==0)
+					drawPreview(mouseX, mouseY, currentShape);
+				if(keyIsDown(40) && previewScaleY >= .5)
+					previewScaleY-=0.1;
+				else if(keyIsDown(38) && previewScaleY <= 30)
+					previewScaleY+=0.1;
+				if(keyIsDown(39) && previewScaleX <=30)
+					previewScaleX+=0.1;
+				else if(keyIsDown(37) && previewScaleX >=.5)
+					previewScaleX-=0.1;
+			}
+
+			plot(-10, 10, marcel, 'green');
+			animation.update();
+			animation.draw();
+
+			UIScreen.draw();
 		}
-		else if(centerY<hBottom)
-		{
-			offsetY += lerp(0, hBottom - centerY, Alpha);
-			Alpha += 0.02;
+		case 1:{ //pause
+
 		}
-		else
-			Alpha = 0;
 	}
-
-	grid.update(offsetX, offsetY, scaleX, scaleY);
-	grid.draw();
-
-	for(let i = 0;i<obstacleIndex;i++)
-	{
-		obstacles[i].updatetime();
-	}
-
-
-	plot(-1, 10, marcel, 'green');
-	animation.draw();
-
-	UIScreen.draw();
-
 }
 
 var obstacles=[];
 var obstacleIndex = 0;
 
-function mouseClicked()
+function mousePressed()
 {
-	console.log( screenToWorld(mouseX, mouseY).x, screenToWorld(mouseX, mouseY).y );
-
-	//ignore drags, press control and click to spawn objects of latest type selected
 	if(keyIsDown(17))
 	{
-		//preview
-		
-		obstacles[obstacleIndex] = new SceneObject();
-		obstacles[obstacleIndex].init(mouseX,mouseY,currentShape);
-		obstacleIndex++;
+		if(mouseButton === LEFT){
+			obstacles[obstacleIndex] = new SceneObject();
+			obstacles[obstacleIndex].init(mouseX,mouseY,currentShape, previewScaleX, previewScaleY);
+			obstacleIndex++;
+		}
+		else if(mouseButton === RIGHT)
+		{
+			var w =  screenToWorld(mouseX, mouseY);
+			for(let x = 0; x<obstacleIndex ; x++)
+			{
+				if(obstacles[x].collide(w.x, w.y)){
+					obstacles.splice(x, 1);
+					obstacleIndex--;
+					x--;
+				}
+			}
+		}
 	}
 }
 
+document.oncontextmenu = function() { return false; };
 function mouseDragged()
 {
-	offsetX -= (mouseX - pmouseX)/scaleX;
-	offsetY -= (mouseY - pmouseY)/scaleY;
+	if(mouseButton === LEFT && !keyIsDown(17))
+	{
+		offsetX -= (mouseX - pmouseX)/scaleX;
+		offsetY -= (mouseY - pmouseY)/scaleY;
+	}
 }
 
 function mouseWheel(event)
@@ -146,27 +168,22 @@ function keyPressed()
 {
 	if(keyCode == 32){
 		mode= !mode;
-		console.log('Hi');
 	}
-	else
-		if(keyCode == 49)
-		{
-			//square
-			currentShape = 0;
-		}
-	else
-		if(keyCode == 50)
-		{
-			//circle
-			currentShape = 1;
-		}
-	else
-		if(keyCode == 51)
-		{
-			//rect
-			currentShape = 2;
-		}
-	UIScreen.addImage(currentShape);
+	else if(keyCode == 81){
+		currentShape = [currentShape+1]%2;
+		UIScreen.addImage(currentShape);
+	}
+	else if(keyCode == 13){
+		if(running)
+			running = 0;
+		else
+			running = 1;
+	}
+}
+
+var Screenshot;
+function screenshot() {
+  Screenshot = createCapture(VIDEO);
 }
 
 function plot( a, b, law, color )
@@ -212,4 +229,18 @@ function Tan(x)
 function marcel(x)
 {
 	return -x*sin(3*x);
+}
+
+
+var previewScaleX = 1.2;
+var previewScaleY = 1.2;
+function drawPreview(x, y, type){
+	if(type == 0){
+		fill(101, 173, 172, 100);
+		ellipse(x, y, previewScaleX*scaleX, previewScaleY*scaleY );
+	}
+	else if(type == 1){
+		fill(212, 61, 192, 100);
+		rect(x, y, previewScaleX*scaleX, previewScaleY*scaleY);
+	}
 }
