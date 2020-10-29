@@ -4,45 +4,43 @@ function Animation()
 	this.sx = 0;
 	this.sy = 0;
 	this.wy = 0;
-	this.deathPos = 0;
-	this.currentColor = color(50, 55, 100);
-	this.start = function(a, b, intervalFunction)
+	this.color = 'yellow';
+	this.start = function(a, b, law )
 	{
 		this.a = a;
 		this.wx = a;
 		this.b = b;
-		this.intervalFunction = intervalFunction;
+		this.deathPos = b + 1;
+		this.law = law;
 	}
 	this.update = function()
 	{
 		if(this.wx > this.b || this.wx < this.a)
 			this.speed *= -1;
 		var dx = 1/this.speed;
-		this.wx += dx;
-		this.wy = this.intervalFunction.evaluate(this.wx);
+		if(this.wx<=this.deathPos || this.deathPos==0)
+			this.wx += dx;
+		this.wy = -this.law(this.wx);
 		this.sx = worldToScreen(this.wx, 0).x;
-		this.sy = worldToScreen(0, this.wy).y; 
-		
+		this.sy = worldToScreen(0, this.wy).y;
+
 		if(this.deathPos !=0)
 		{
 			if(abs(this.deathPos-this.wx)<=0.01)
 			{
-				console.log("here");
-				this.currentColor = color(200,80,0);
+				this.color = 'red';
 			}
-		}
+		} 
 	}
 	this.draw = function()
 	{
 		noStroke();
-		fill('red');
-		var pSize = .5*scaleX;
-		ellipse(this.sx, this.sy, pSize, pSize);
-
+		fill(this.color);
+		ellipse(this.sx, this.sy, .5*scaleX, .5*scaleY);
 		noFill();
 		stroke('black');
 	}
-	
+
 	this.preCalculate = function()
 	{
 		this.color = 'yellow';
