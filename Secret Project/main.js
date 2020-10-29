@@ -36,6 +36,7 @@ var Alpha;
 var speed = 8;
 var mouseUpdates = 1;
 var gamePlaying = 0;
+var allow = 1;
 
 function draw(){
 
@@ -44,10 +45,9 @@ function draw(){
 		case 0: { //running
 			background('white');
 
-			console.log(mouseY);
-			if(mouseY > windowHeight*70/100 +30 && menuOn ==0)
+			if(mouseY > windowHeight*70/100 +30 && menuOn ==0 && allow)
 				toggleMenu();
-			else if(mouseY < windowHeight*70/100 -30 && menuOn ==1)
+			else if(mouseY < windowHeight*70/100 -30 && menuOn ==1 && allow)
 				toggleMenu();
 
 			if(mode){
@@ -56,6 +56,9 @@ function draw(){
 				offsetX += (animation.wx - centerX); //Fix xCoord to animation
 
 				var centerY = screenToWorld(0, windowHeight/2).y;
+				offsetY += (animation.wy - centerY);
+
+				/*
 				var hTop = animation.wy + boundry;
 				var hBottom = animation.wy - boundry;
 
@@ -70,6 +73,7 @@ function draw(){
 				}
 				else
 					Alpha = 0;
+				*/
 			}
 
 			grid.update();
@@ -117,11 +121,11 @@ function draw(){
 
 function totalFunction(x)
 {
-	for(let k=intervals[0]; k<intervals.length; k++)
-		if(x<intervals[k]){
+	for(let k=0; k<intervals.length; k++)
+		if(x<=intervals[k]){
 			if(intervalLaws[k-1])
 				return intervalLaws[k-1].law(x);
-			return ;
+			return intervalLaws[k].law(x);
 		}
 
 }
@@ -129,8 +133,11 @@ function totalFunction(x)
 function startGame()
 {
     gamePlaying=1-gamePlaying;
-    if(gamePlaying)
+    if(gamePlaying){
     	animation.preCalculate();
+    }
+    else
+    	mode = 0;
 }
 
 var obstacles = [];
@@ -139,13 +146,13 @@ var obstaclePlaced = false;
 
 function mousePressed()
 {
-	if(mouseButton === LEFT && currentShape!=-1 && mouseUpdates==1){
+	if(mouseButton === LEFT && currentShape!=-1){
 		obstacles[obstacleIndex] = new SceneObject();
 		obstacles[obstacleIndex].init(mouseX,mouseY,currentShape, previewScaleX, previewScaleY);
 		obstacleIndex++;
 		obstaclePlaced = true;
 	}
-	else if(mouseButton === RIGHT && mouseUpdates)
+	else if(mouseButton === RIGHT)
 	{
 		if(currentShape!=-1)
 			currentShape = -1;
@@ -167,7 +174,7 @@ function mousePressed()
 document.oncontextmenu = function() { return false; };
 function mouseDragged()
 {
-	if(mouseButton === LEFT && !keyIsDown(16) && mouseUpdates)
+	if(mouseButton === LEFT && !keyIsDown(16) && ( mouseUpdates  || ( mouseUpdates==0 &&  mouseY<windowHeight*70/100) ) )
 	{
 		offsetX -= (mouseX - pmouseX)/scaleX;
 		offsetY -= (mouseY - pmouseY)/scaleY;
@@ -210,6 +217,10 @@ function keyPressed()
 	else if(keyCode == 8) //backspace begins game
     {
         startGame();
+    }
+    else if( keyCode == 69 ){
+    	allow = !allow;
+    	toggleMenu();
     }
 }
 
