@@ -45,20 +45,22 @@ function Animation()
 	
 	this.preCalculate = function()
 	{
+		this.color = 'yellow';
 		var x = obstacles.length;
+		var dx = 0.01;
+		this.wx = this.a;
+		this.deathPos = 0;
 		if(x==0)
 			return;
-		var dx = 1/this.speed;
 		while(this.wx < this.b)
 		{
-			this.wx += 0.01;
-			this.wy = this.intervalFunction.evaluate(this.wx);
+			this.wx += dx;
+			this.wy = -this.law(this.wx);
 			for(let i=0;i<x;i++)
 			{
 				if(obstacles[i].collide(this.wx,this.wy))
 				{
 					this.deathPos = this.wx;
-					console.log(this.deathPos);
 					this.wx = this.a;
 					return;
 				}
