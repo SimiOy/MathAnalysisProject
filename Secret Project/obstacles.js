@@ -16,7 +16,6 @@ function SceneObject()
         this.xPos = fileXPos;
         this.yPos = fileYPos;
     }
-
 	this.init = function(mouseXPos,mouseYPos,source, scalex, scaley)
 	{
 		this.scalex = scalex;

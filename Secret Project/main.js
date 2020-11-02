@@ -26,27 +26,6 @@ function preload()
     levelsTable = loadTable("assets/levels.csv","csv","header",saveFunction.loadLevel,saveFunction.generateNew);
 }
 
-function setup(){
-	myCanvas = createCanvas(windowWidth, windowHeight);
-	myCanvas.parent("mainscreen");
-	offsetX = -windowWidth/2;
-	offsetY = -windowHeight/2;
-	Alpha = 0;
-
-	var c0, c1;
-	c0 = screenToWorld(windowWidth/2, windowHeight/2);
-	scaleX = scaleY = 75;
-	c1 = screenToWorld(windowWidth/2, windowHeight/2);
-
-	offsetX += (c0.x - c1.x);
-	offsetY += (c0.x - c1.y);
-
-	animation = new Animation();
-	animation.start(0, 20, totalFunction);
-	grid = new Grid();
-	grid.update(offsetX, offsetY, scaleX, scaleY);
-	boundry = 0.8;
-
 	mouseUpdates = 1;
 
 	levelNo = getValue("levelNo");
