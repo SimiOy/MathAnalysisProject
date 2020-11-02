@@ -1,0 +1,56 @@
+body{padding : 0; margin : 0; overflow:hidden;}
+
+:root {
+    --cellHeight: calc(100vh - 100px);
+    --cellWidth:calc((var(--cellHeight)) / 3 * 5 );
+    --rowHeight: calc((var(--cellHeight) - 30px) / 4);
+    --windowHeightMob: calc(var(--vh) * 100);
+    --cellHeightMob: calc(var(--windowHeightMob) - (172px * 3));
+  }
+
+#main{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(227, 255, 222);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cells{
+  position: absolute;
+  display: grid;
+  height: var(--cellHeight);
+  width: var(--cellWidth);
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: var(--rowHeight);
+  grid-gap: 10px;
+  background-image: none;
+  background-size: 101%;
+  background-position: 10%0%;
+}
+
+.cells > div {
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  border-style: solid;
+  border-color: rgb(154, 191, 147);
+  border-width: 1px;
+  border-radius: 3.5vh;
+  text-align: center;
+  justify-content:center;
+  background-color: none;
+}
+
+.cells > div p {
+  text-decoration: none;
+  margin: auto;
+}
+
+.cells > div:hover {
+  background-color: rgb(154, 191, 147);
+  font-size: 1.5vw;
+  cursor: pointer;
+  color: white;
+}

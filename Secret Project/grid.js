@@ -14,6 +14,19 @@ function Grid(){
 
 	this.update = function()
 	{
+		if(keyIsDown(16))
+			speed = 32;
+		else
+			speed = 10;
+		if(keyIsDown(68))
+			offsetX+=speed/scaleX;
+		else if(keyIsDown(65))
+			offsetX-=speed/scaleX;
+		if(keyIsDown(87))
+			offsetY-=speed/scaleY;
+		else if(keyIsDown(83))
+			offsetY+=speed/scaleY;
+
 		this.startX = screenToWorld(0, 0).x;
 		this.endX = screenToWorld(windowWidth, 0).x;
 		this.startY = screenToWorld(0, 0).y;
@@ -52,6 +65,7 @@ function Grid(){
 		line(center.x, 0, center.x, windowHeight);
 		
 		strokeWeight(1);
+		noFill();
 		ellipse( worldToScreen(15/scaleX, 15/scaleY).x, worldToScreen(15/scaleX, 15/scaleY).y, 8, 12 );
 
 		for(let x = 0; x<this.endX; x+=this.grid_norm) //POSITIVE X
