@@ -2,7 +2,7 @@ function save(){
 
 	var exec = require('child_process').exec;
 
-	exec('git add data.txt && git commit -m "A new test" ', function (error, stdOut, stdErr) {
+	exec('git add levels.csv && git commit -m "A new test" ', function (error, stdOut, stdErr) {
 		console.log(error); 	
 	});
 	exec('git push', function (error, stdOut, stdErr) {
@@ -11,7 +11,7 @@ function save(){
 }
 function get(){
 	var exec = require('child_process').exec;
-	exec('git checkout -- data.txt"', function (error, stdOut, stdErr) {
+	exec('git checkout -- levels.csv"', function (error, stdOut, stdErr) {
 	 	console.log(error);
 	});
 }

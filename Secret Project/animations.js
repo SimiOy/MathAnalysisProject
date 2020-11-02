@@ -10,20 +10,26 @@ function Animation()
 		this.a = a;
 		this.wx = a;
 		this.b = b;
-		this.deathPos = b + 1;
+		this.deathPos = 0;
 		this.law = law;
 	}
 	this.update = function()
 	{
-		if(this.wx > this.b || this.wx < this.a)
+		if(this.wx >= this.b || this.wx <= this.a)
 			this.speed *= -1;
 		var dx = 1/this.speed;
-		if(this.wx<=this.deathPos || this.deathPos==0)
+		if(this.wx<this.deathPos || this.deathPos==0)
 			this.wx += dx;
-		this.wy = -this.law(this.wx);
+		if(this.wx > this.b)
+			this.wx = this.b;
+		else if(this.wx < this.a)
+			this.wx = this.a;
+		this.wy = this.law(this.wx);
 		this.sx = worldToScreen(this.wx, 0).x;
+		this.wy = min(100, this.wy);
+		this.wy = max(-100, this.wy);
+		this.wy = -this.wy;
 		this.sy = worldToScreen(0, this.wy).y;
-
 		if(this.deathPos !=0)
 		{
 			if(abs(this.deathPos-this.wx)<=0.01)

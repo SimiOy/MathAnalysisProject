@@ -13,6 +13,34 @@ body{padding : 0; margin : 0; overflow:hidden;}
 	filter: brightness(0.6);
 }
 
+#settings_button{
+	position: absolute;
+	left: 60%;
+	bottom: 45%;
+	width: 7%;
+	display: none;
+	filter: brightness(0.4);
+}
+
+#settings_button:hover{
+	filter: brightness(0.6);
+}
+
+
+#home_button:hover{
+	filter: brightness(0.6);
+}
+
+#home_button{
+	position: absolute;
+	left: 32%;
+	bottom: 45%;
+	width: 6%;
+	display: none;
+	filter: brightness(0.4);
+}
+
+
 #frame{
 	position: absolute;
 	left: 0;
@@ -71,6 +99,7 @@ body{padding : 0; margin : 0; overflow:hidden;}
 }
 
 #mini_plot{
+	z-index: 3;
 }
 
 #function_list{

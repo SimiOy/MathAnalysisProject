@@ -8,6 +8,14 @@ function SceneObject()
 	this.scaley = 1.8;
 	//rotation in the future
 
+	this.filesInit = function(fileXPos,fileYPos,source, scalex, scaley)
+    {
+        this.scalex = scalex;
+        this.scaley = scaley;
+        this.type = source;
+        this.xPos = fileXPos;
+        this.yPos = fileYPos;
+    }
 	this.init = function(mouseXPos,mouseYPos,source, scalex, scaley)
 	{
 		this.scalex = scalex;
@@ -15,6 +23,10 @@ function SceneObject()
 		this.type = source;
 		this.xPos = screenToWorld(mouseXPos,0).x;
 		this.yPos = screenToWorld(0,mouseYPos).y;
+		if(this.type){
+			this.xPos -= scalex/2;
+			this.yPos -= scaley/2; 
+		}
 	}
 
 	this.draw = function()
@@ -50,3 +62,16 @@ function SceneObject()
 		}
 	}
 }	
+
+var previewScaleX = 1.2;
+var previewScaleY = 1.2;
+function drawPreview(x, y, type){
+	if(type == 0){
+		fill(101, 173, 172, 100);
+		ellipse(x, y, previewScaleX*scaleX, previewScaleY*scaleY );
+	}
+	else if(type == 1){
+		fill(212, 61, 192, 100);
+		rect(x - previewScaleX*scaleX/2, y - previewScaleY*scaleY/2, previewScaleX*scaleX, previewScaleY*scaleY);
+	}
+}
