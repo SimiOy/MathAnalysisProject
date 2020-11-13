@@ -1,0 +1,134 @@
+body{padding : 0; margin : 0; overflow:hidden;}
+
+:root {
+    --cellHeight: calc(100vh - 100px);
+    --cellWidth:calc((var(--cellHeight)) / 3 * 5 );
+    --rowHeight: calc((var(--cellHeight) - 30px) / 4);
+    --windowHeightMob: calc(var(--vh) * 100);
+    --cellHeightMob: calc(var(--windowHeightMob) - (172px * 3));
+  }
+
+#sym{
+  position: absolute;
+  width: 5%;
+  height: 100%;
+  right: 0%;
+  border-left: 3px solid black;
+  background-color: #b2c9ad;
+  color: black;
+  transition: background-color .2s, color.2s;
+}
+
+#sym>h3{
+  position: absolute;
+  top: 60%;
+  left: -265%;
+  background: none;
+  transform-origin: 100% 0;
+  transform: rotate(90deg);
+  font-size: 50px;
+  user-select: none;
+}
+#sym:hover{
+  background-color: black;
+  color: #b2c9ad;
+}
+
+#home{
+  position: absolute;
+  width: 5%;
+  height: 100%;
+  left: 0%;
+  border-right: 3px solid black;
+  background-color: #b2c9ad;
+  transition: background-color .2s, color.2s;
+}
+#home:hover{
+  background-color: black;
+  color: #b2c9ad;
+}
+
+#home>h3{
+  position: absolute;
+  top: 50%;
+  left: -110%;
+  background: none;
+  transform-origin: 100% 0;
+  transform: rotate(90deg);
+  font-size: 50px;
+  user-select: none;
+}
+
+#main{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-color: rgb(227, 255, 222);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.cells{
+  position: absolute;
+  display: grid;
+  height: var(--cellHeight);
+  width: var(--cellWidth);
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: var(--rowHeight);
+  grid-gap: 10px;
+  background-image: none;
+  background-size: 101%;
+  background-position: 10%0%;
+}
+
+.cells > div {
+  width:100%;
+  display: flex;
+  flex-direction: row;
+  border-style: solid;
+  border-color: rgb(154, 191, 147);
+  border-width: 1px;
+  border-radius: 3.5vh;
+  text-align: center;
+  justify-content:center;
+  background-color: none;
+  user-select: none;
+}
+
+.cells > div p {
+  text-decoration: none;
+  margin: auto;
+}
+
+.cells > div:hover {
+  background-color: rgb(154, 191, 147) !important;
+  font-size: 1.5vw !important;
+  cursor: pointer !important;
+  color: white !important;
+}
+
+.csstransforms aside h3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: none;
+  transform-origin: 0 0;
+  transform: rotate(90deg);
+}
+
+#loader1{
+  position: absolute;
+  background-color: rgb(227, 255, 222);
+  width: 100%;
+  height: 100%;
+  z-index: 99;
+}
+
+#loader2{
+  display: none;
+  position: absolute;
+  width:100%;
+  height:100%;
+  background-color: white;
+  z-index: 99;
+}
