@@ -1,4 +1,5 @@
 # Secret Project - documentatie
+de Panaitescu Aaron si Simionescu Andrei
 
 # Scop
 Prin acest proiect vrem sa incurajam elevii de liceu sa invete vizual analaiza matematica.
