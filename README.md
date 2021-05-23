@@ -23,9 +23,11 @@ De asemenea, poate amplifica sau micsora imagina prin scroll wheel pentru a vede
 Jucatorul poate deschide un panou care ii permite construirea unei functii prin urmatoarele procedee:
 - compunere binara de functii (+ | - | / | ^)
 - compunere unara de functii ( fog(x) )
-- ramificarea unei functii ( f(x) = { h(x) , x ∈ H    , H ∪ G =  F , H ∩ G = {}
-                                    { g(x) , x ∈ G
-                            )
+- ramificarea unei functii ( 
+```
+f(x) = { h(x) , x ∈ H    , H ∪ G =  F , H ∩ G = {}
+       { g(x) , x ∈ G
+```
 - functiile elementare ( sin , cos, tg, ctg, arctrigo, e^x, ln x, x^a, ct)
 
 Implementarea tuturor acestor mecanici foloseste diferite culori pentru a simplifica procesul de intelegere
