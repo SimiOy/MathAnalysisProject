@@ -1,78 +1,81 @@
-# Secret Project - documentatie
-de Panaitescu Aaron si Simionescu Andrei
+# MathPlotFun - documentation
+by Simionescu Andrei and Aaron Panaitescu
 
-# Scop
-Prin acest proiect vrem sa incurajam elevii de liceu sa invete vizual analaiza matematica.
-In ciuda complexitatii domeniului speam sa stimulam curiozitate si gandire matematica.
+# Purpose
+Through this project we hope to stimulate highschool students to play around with complex
+mathematical analysis functions, maybe even have a bit of fun with it!
 
 # TLDR
-Scopul jocului este sa navighezi planul xOy printre o serie de obstacle utilizand 
-puterea compunerii functiilor. Jocul permite toate operatiile cunoscute pe functii si dispune
-de toate functiile elementare. 
-Pe langa rezolvare a diferite nivele, un jucator poate sa isi si creeze propriile nivele,
-avand abilitatea de a isi posta creatiile pentru alti jucatori. 
+By plotting a function, a rocket will follow the player's trajectory trying to avoid all obstacles.
+The goal of the game is to navigate the xOy graphical coordinate system, by compounding a series of functions,
+while avoiding obstacles in place. The game allows all possible compounds of functions. (f+g,f-g,f*g,f(g),f(g+c),f(g*c),f(g-c))
+Besides solving the already existing levels, users are allowed to create their own levels, to challenge other
+players to try them out as well.
 
-# Mecanici
+# Mechanics
 
-## 1. Planul xOy
+## 1. The xOy plane
 
-Juctatorul poate explora nivelul prin miscarea cursorului pe ecran sau prin inputuri de la tastatura (WASD)
-De asemenea, poate amplifica sau micsora imagina prin scroll wheel pentru a vedea detaliile traiectoriei.
+The player can explore the plane by moving the cursor (similar to Desmos) around or using the (WASD) keys
+Similar to Desmos, it is possible to zoom into or out of a function infinitely many times without getting into any issues.
 
-## 2. Modificare functiei
+## 2. Modifying the function
 
-Jucatorul poate deschide un panou care ii permite construirea unei functii prin urmatoarele procedee:
-- compunere binara de functii (+ | - | / | ^)
-- compunere unara de functii ( fog(x) )
-- ramificarea unei functii ( 
+The player can open a panel in which he can to the following operations on a function f:
+- compound functions (+ | - | / | ^)
+- unary composition of a function ( fog(x) )
+- function ramifications on any arbitrary number of points
 ```
 f(x) = { h(x) , x ∈ H    , H ∪ G =  F , H ∩ G = {}
        { g(x) , x ∈ G
 ```
-- functiile elementare ( sin , cos, tg, ctg, arctrigo, e^x, ln x, x^a, ct)
+- access to basic elementary functions ( sin , cos, tg, ctg, arctrigo, e^x, ln x, x^a, ct)
 
-Implementarea tuturor acestor mecanici foloseste diferite culori pentru a simplifica procesul de intelegere
+The implementation of these functions was done using an appropiate color scheme, to make the
+game more user-friendly (turcoise looks like a good color for ln(x))
 
-## 3. Rulare / Pauza / Reset
+## 3. RunTime/Pause/Reset
 
-Cand Jucatorul vrea sa verifice daca functia pe care a construit-o evita toate obstacolele, poate rula nivelul.
-Un obiect custom va parcurge traiectoria impuse de functie si se va opri in eventualitae unei coliziuni.
-Daca obiectul ajunge la capatul intervalului specific nivelului juctorul poate progresa la nivelul urmator.
+When theplayer wants to verify that the function that he has completed verifies (and avoids all obstacles placed),
+he can just run the game. A custom object (a rocket) will traverse the player's inputed function and
+calculate if any collsiion is being made. If the rocket reaches the end of the level, that means that 
+the level was passed.
 
-In timpul miscarii obiectului, jucatprul poate pune pauza pentru a isi studia eventualele greseli.
-De asemenea, poate reseta nivelul in cazul in care vrea sa modifice radical functia.
+During runtime the player can pause the game at any given time and check for any possible incosistencies
+with the function. He can see and modify it on the spot, and reset the game afterwards.
 
-## 4. Platforma si Interfata
+## 4. Platform and Interfaces
 
-Pentru a incepe o aventura matematica in Secret Project, jucatorul are 2 oprtiuni :
-- Primeste un utilizator de tip guest care tine minte informatiile per sesiune/device prin cookiuri.
-    (odata ce cookiurile au fost sterse progresul lui s-ar pierde)
-- Se logheaza cu contul de Google si este autentificat. Conturile developerilor au permisiuni suplimentare
-    pentru a modifica nivele sau setari interne
+To start this mathematical adventure the player is being given two options:
+- A guest user that mentains current progress via cookies (but if the cookies are reset 
+  the current progress is lost!)
+- Log in to a google account using the google api. This way the progress is saved during multiple
+  run times of the game. (Developer google accounts are distinguished since they have multiple
+  accesses to special commands to modify exisiting levels or update the databes.)
 
-# Procesul de instalare
+# Instalation process
 
-Pentru ca suntem la inceput nu hostuim jpcul pe internet, in ciuda faptul ca infrastructura ne-ar permite cu usurinta.
-    ( pentru a tine un site pe internet este nevoie de resurse financiare de care nu dispunem, dar cautam activ finantare )
-In schimb cu putina rabdare, puteti urma pasii urmatori:
-- dezarhivam rar-ul SecretProject.rar
-- instalam XAMPP pentru decodificare fisierelor php si sql
-- introducem in folderul '\xampp\mysql\data' folderul 'test' din arhiva
-- introducem in folderul '\xampp\htdocs' urmatoarele :
-    - fisierul index.php si connect.php
-    - folderul SecretProject
-- din panoul de control Xampp pornim serverele locale MySql si Apache
-- deschidem in browser http://localhost/Secret%20Project/index.php
+Since we are begginers we chose not to host the game on the web, even though our infrastucture would allow us to.
+    (To host a website costs money, which we currently lack.)
+But with a bit of patience you can follow these easy steps:
+- unarchive the rar: SecretProject.rar
+- install XAMPP for the decode of the php and sql files
+- place into this folder: '\xampp\mysql\data'; this folder 'test' from the archive
+- place in this folder '\xampp\htdocs' the following :
+    - file: index.php && connect.php
+    - the SecretProject folder
+- from Xampp's control panel start the apache and the sql server
+- open in browser http://localhost/Secret%20Project/index.php
 
-Gata! Treci la joaca!
+You are all set! try it out!
 
-# Provocari tehnice
+# Techinical challenges faced
 
-## 0. Librarii si limbaje de programre
-- limbaje: javascript, php/html/css, sql 
-- librarii: p5.js , math.js, google-api
+## 0. Libraries and programming languages used:
+- languages: javascript, php/html/css, sql 
+- libraries: p5.js , math.js, google-api
 
-## 1. Planul xOy
+## 1. The xOy grid
 
 ```javascript
 
@@ -84,9 +87,9 @@ class Grid{
 
 ```
 
-Calculele leagate de navigarea in planul xOy se petrec in fisierul 'grid.js' .
-Clasa grid are:
-- constructor ce initializeaza variabile de pozitie, orientare, si scara.
+The calculations necessary for traversing the xOy plane are done in the 'grid.js' file.
+Grid class contains:
+- constructor which initialises variables of position, scale, and other variables used.
 
 ```javascript
 	constructor(){
@@ -105,9 +108,9 @@ Clasa grid are:
 	}
 ```
 
-- o metoda update ce asculta inputurile utilizatourlui si modifica variabilele mentionate mai sus
+- a method update which listens to user input and modifies the above-mentioned variables accordingly
 
-In exemplul de mai jos este abordata miscarea in plan prin tastele WASD 
+In the following the WASD movement is portrayed:
 ```javascript
 update(){
     ...
@@ -125,11 +128,11 @@ update(){
             else if(keyIsDown(83))
                 offsetY+=speed/scaleY;
             }
-    ... // urmeaza scalarea si calcurarea marimii indicilor numerici din planul xOy
+    ... // next is scaling and calculating numerical indices for the xOy plane
 }
 ```
 
-- o metoda draw care deseneaza pe ecren frame de frame utilizand informatiile din update
+- A method draw which draws on the website all the information provided each frame in the update method
  
 ```javascript
 draw() {
@@ -165,15 +168,15 @@ draw() {
                     }
                 }
             }
-    ...     // analog pentru cadranele 2 si 3 si liniile orizontale
+    ...     // same for the second and third quadrant
 }
 ``` 
 
 ![Image](https://raw.githubusercontent.com/NemoInfo/SecretProject/main/grid.png)
 
-## 2. Desenarea functiilor
+## 2. Function drawing
 
-Acestea sunt organizate intr-o clasa astfel incat apelarea si utilizarea lor sa fie facuta cu usurinta.
+Organised into a class such that the calling and updating of these is as easy as possible
 
 (in ui.js)
 
@@ -199,13 +202,13 @@ Acestea sunt organizate intr-o clasa astfel incat apelarea si utilizarea lor sa 
 	}
 ```
 
-Pentru a desena pe ecran functiile am avut doua versiuni ale unei functii de plot. 
+For the screen drawing, we had some issues and we made two functions for plotting
 (in main.js)
 
 ```javascript
-function plot( a, b, law, color ) // prima varianta de desenat, evalueaza functia
-                                 // din pixel in pixel si conecteaza punctele obtiunete
-                                 // PROBLEMA: functii discontiune cu limite laterale infinite (ln (la 0))
+function plot( a, b, law, color ) // first variant of drawing, evaluates the function
+                                 // pixel by pixel and makes the necessary connections
+                                 // PROBLEM: type 2 discontinuites, and vertical asymptotes; INEFFICIENT
 {
 	var screenA = worldToScreen(a, 0).x;
 	var screenB = worldToScreen(b, 0).x;
@@ -234,12 +237,12 @@ function plot( a, b, law, color ) // prima varianta de desenat, evalueaza functi
 	endShape();
 }
 
-function omegaPlot(a, b, law, color) // versiunea finala care a dat roade:
-                                    // evaluam functia pe baza amplitudinii pantei:
-                                   // cand functia se modifica putin folsim putine puncte
-                                  // cand se modifica mult folosim din ce in ce mai multe
-                                 // astfel, rezolvam problema discontinuitatilor de speta I si a II-a  
-                                // in esenta cu cat functia este mai 'detaliata' cu atat ma multe puncte pe grafic calculam
+function omegaPlot(a, b, law, color) // the final version which SUCCEDDED:
+                                    // Evaluate based on the rate of change (first order derivative)
+                                   // when the function modifies slighlty -> use less points
+                                  // when the function modifies abruptly -> use many points
+                                 // as such, we fix the issues with type 1 and type 2 discontinuites at a given point (i.e tan(x) at x = k*pi/2)
+                                // in essence the more the function is "detailed" the more points we draw (a liniar function would take least amount of points)
 {
 	let wx = a;
 	stroke(color);
@@ -265,7 +268,7 @@ function omegaPlot(a, b, law, color) // versiunea finala care a dat roade:
 	endShape();
 }
 
-function derivative(law){ // derivata evaluata numeric pentru omegaPlot
+function derivative(law){ // numeric evaluation of a derivative at a given point
 		return x0 => {
 			let y0 = law(x0);
 			let x = x0 + 1/100000000;
@@ -276,10 +279,9 @@ function derivative(law){ // derivata evaluata numeric pentru omegaPlot
 ```
 
 
-## 3. Obstacole (in obstacles.js)
+## 3. Obstacles (in obstacles.js)
 
-Acestea sunt impartite in difirete clase unite sub o clasa mare polimorfica pentru a 
-apela aceleasi functii pentru obiecte diferite.
+Shared under multiple classes, united in a single poly-morphic class that contains all of them
 
 ```javascript
 class SceneObject // clasa polimorfica de obstacole
@@ -321,19 +323,26 @@ class Ellipse extends SceneObject{ // obstacol eliptic
 }
 ```
 
-Fiecare obiecat este construit din functia:
-- draw() care deseneaza forma pe ecran
-- collide() care returneza daca un punct se afla sau nu in interiorul functiei
+Every object constructed using these functions:
+- draw() which simply draws it on to the screen
+- collide() which returns whether or not a point is inside an object
 
-## 4. Animatie (in animation.js)
+## 4. Animations (in animation.js)
 
-Cand jucatorul ruleaza nivelul camera focalizeaza obiectul care parcurge functia.
-Intreg procesul este descris matematic si impartit in secunde in functie de viteza obiectului si de oordonatele (x,y).
-Orientarea/Rotatia obiectului pe grafic este redata de derivata intai.
+When the player runs the game, the central focus of the camera is locked (by default, but can be changed by pressing spacebar)
+on the actual object following the trajectory
+The entire process follows all mathematical rules:
+	- object speeds up when going to infinity on a vertical asysmptote 
+	  (we con't want to wait infinte seconds, a few milsieconds is enough)
+	- the camera focus is bounded by invisible lines, such that the speed of the camera follows 
+	  an offset of the speed of the object (has some bounds in which it doesn't need to move at all for example)
+	- The orientation of the rocket (such that it's always going forward), is given by the slope of the function
+	  (first order derivative)
 
-O optimizare cruciala: 
-Functia preCalculate() verifrica daca jucatorul a castigat sau nu in frame-ul in care ruleaza animatia, noi cunoastem locatia exacta
-a unei eventuale ciocniri din starea initiala, astfel nu trebuie sa verifica coliziuni in fiecare frame.
+One crucial optimization: 
+the preCalculate() function "knows" if your rocket will crash before the actual start of the game (we just don't tell the player),
+such that we don't have to do manual checks for the collision each frame, we just store the x position of the rocket for the first "impact",
+if any.
 
 ```javascript
 preCalculate()
@@ -364,8 +373,8 @@ preCalculate()
 	}
 ```
 
-Metoda update() calculeaza coordonatele si orientare obiectul animat, oprind animatia cand ajunge
-la coordonata finala (fie ea cea de coliziune sau de final de interval)
+Method update() calculates the current position and orientation of the object and the location of the possible "crash"; 
+(possible crash might not be any, meaning that the rocket will be able to travers and avoid all obstacels)
 
 ```javascript
 update()
@@ -397,13 +406,15 @@ update()
 
 ## 5. UI (in ui.js)
 
-Interfata poate fi unul dintre cele mai importante aspecte ale unui joc/aplicatie.
-Noi am incercat sa pastram un design modern, minimalist, utilizand spatiul ecranului cat optim si estetic vizual.
-Astfel orice meniu care nu este necesar la un moment de timp dispare automat de pe ecran.
+The interface might be one of the most appealing and important parts of a game/application.
+We tried to preserve a minimal, modern design, using the contents of the screen as little as possible
+As such, all menus glide from the sides, and disappear when the cursor is no longer on them.
 
-Am folosit o combinatie de panouri html, elemente css si conexiuni javascript pentru a oferi o experienta seamless.
+We used a combiantion of html panels, css style codes, and javascript calls to make the user-experience
+as seamless as possible.
 
-Spre exemplu, cand jucatorul pune pauza apelam functia pause() si oprim toate procesele active asteptand urmatorul input
+For example, when the function pause() is called, all active processes of the game are stopped, to minimalise
+background usage.
 
 ```javascript
 function pause()
@@ -427,7 +438,7 @@ Intervalele pot fi miscate modificate, compuse. Bara de 2d de previzualizare rep
 Pentru a desena diferitele intervale in meniul secundar iteram prin toate capetele de intervale si atribuim functia aleasa de jucator
 
 
-(in cadrul metodei p.draw() atribuita meniului 'bottom_bar')
+(i.e: in the method p.draw() attributed to menu 'bottom_bar')
 ```javascript
 for(let i=1; i<intervals.length-1; i++)
 		{
@@ -461,13 +472,13 @@ for(let i=1; i<intervals.length-1; i++)
 
 ## 6. Main (in main.js)
 
-Fisierul main.js leaga toate componetele proiectului pentru a rula orice nivel.
-Contine o serie de functii care primesc inputuri, si cheama functii externe.
-Creeaza canvasul p5, il updateaza si desneaza, chemand functii pe obiecte, expresii, si inputuri.
+The main.js files links all existing files and classes to run the application.
+Contains a series of methods that are called via user inputs, which in turn call other functions
+Creates the p5 canvas, updates it and draws it every frame.
 
-Pentru a face tranzitia de la spatiul ecranului (spatiu practic) la spatiunl abstract xOy (spatiu teoretic),
-folosim 2 functii care convertesc coordonate in functie de scara, pozitie a origini xOy, dimensiunile ecranului
-si a paginii web in sine.
+To make the transition from the SCREEN space (actual screen pixels) to the ABSTARCT space (plane) xOy (theoretical space),
+we use two functions that convert coordinates in realtion to SCALE, POSITION and the xOy plane's origin, screen dimensions and
+the webpage dimensions itself.
 
 ```javascript
 function worldToScreen( worldX, worldY ){
@@ -482,7 +493,7 @@ function screenToWorld( screenX, screenY ){
 }
 ```
 
-De asemenea, fisierul main contine o serie de eventuri care definesc game state-uri
+The main file also contains a series of events that define game-state variables.
 
 ```javascript
 function keyPressed()
@@ -513,7 +524,7 @@ function mousePressed()
 {
 	if(editMode==0)
 		return;
-	if(mouseButton === LEFT && currentShape!=-1){ // Un exemplu bun de proces descris mai sus: creare obstacolelor atunci cand construim nivele
+	if(mouseButton === LEFT && currentShape!=-1){ // A good example of process: rendering all obstacles at the start of any level
 		let wmouse = screenToWorld(mouseX, mouseY);  
 		if(currentShape==0)
 			obstacles[obstacles.length] = new Ellipse(wmouse.x,wmouse.y, previewScaleX, previewScaleY); 
@@ -542,12 +553,12 @@ function mousePressed()
 
 ## 7. Backend (PHP, SQL, google-api)
 
-La nivelul fiecarui jucator, fiecarui nivel, dar si obstacol, avem nevoie sa tinem minte anumite date separat de spatiul jocului.
-Astfel folosim o baza de date Sql cu diferite tabele la care ne conectam, o actualizam si o folosim, prin apeluri din php.
+We have to rememebr information about players, obstacles levels and already passed levels.
+To do this we use a SQL table whihc we update and retrieve information from using a series of php calls
 
-- Baza de date:
+- Data base:
 
-Tabela players:
+Players table:
 ```
 +-----------+------------------+------+-----+---------+----------------+
 | Field     | Type             | Null | Key | Default | Extra          |
@@ -561,7 +572,7 @@ Tabela players:
 +-----------+------------------+------+-----+---------+----------------+
 ```
 
-Tabela objects:
+Objects table:
 ```
 +----------+-----------------------+------+-----+---------+-------+
 | Field    | Type                  | Null | Key | Default | Extra |
@@ -575,11 +586,11 @@ Tabela objects:
 | level_id | int(10) unsigned      | NO   | PRI | NULL    |       |
 +----------+-----------------------+------+-----+---------+-------+
 ```
-Ruland comanda:
+Run command:
 ```
 SELECT * FROM objects WHERE level_id = 1;
 ```
-Se observa datele stocate despre obiectele prezente in niveul 1
+ie.: Data stored for the first level.
 ```
 +--------+---------+----------+-------+-------+-------+----------+
 | number | xPos    | yPos     | xSize | ySize | shape | level_id |
@@ -590,7 +601,7 @@ Se observa datele stocate despre obiectele prezente in niveul 1
 |      3 | 6.12419 | -2.58474 |   1.2 |   1.2 |     0 |        1 |
 +--------+---------+----------+-------+-------+-------+----------+
 ```
-Tabela levels:
+levels tabel:
 ```
 +-------------+------------------+------+-----+---------+----------------+
 | Field       | Type             | Null | Key | Default | Extra          |
@@ -602,7 +613,7 @@ Tabela levels:
 +-------------+------------------+------+-----+---------+----------------+
 ```
 
-In fisierul connect.php conenctam proiectul nostru la baza de date 'test'
+In our connect.php, we connect our applciation to the sql database "test"
 
 ```php
 <?php 
@@ -619,7 +630,7 @@ OR die('Could not connect ' .
 ?>
 ```
 
-Pentru a salva modifica datele despre un nivel folosim fisierul update.php
+To save and modify data about tables or progress we use the update.php file
 
 ```php
 <?php 
@@ -638,7 +649,7 @@ Pentru a salva modifica datele despre un nivel folosim fisierul update.php
  ?>
 ```
 
-In fisierul save.js controlam incarcarea si salvarea unui nivel:
+In the save.js file we control the saving and loading of current existing progress made.
 ```javascript
 function loadLevel()
 {
@@ -699,8 +710,7 @@ function saveLevel()
 	});
 ```
 
-Fisierul controller.php centralizeaza si stocheaza cookieuri si date legate de in ce pagina se afla jucatorul.
-Acesta nu permite accesul jucatorului la nivele sau pagini restrictionate prin schimbarea url-ului.
+File controller.php centarlises and stores cookies and data related to active user playing.
 
 ```php
 <?php 
@@ -737,7 +747,7 @@ Acesta nu permite accesul jucatorului la nivele sau pagini restrictionate prin s
  ?>
 ```
 
-In fisierul index.php ne ocupam de logarea utilizatourui (prin guest sau google-api) si accesul restrictionat la sectiunea de editare a jocului
+In file index.php we do user login (via guest or google-api) and possible (dev-only) restricted access to modifying existing levels
 
 ```php
 <?php 
@@ -797,7 +807,7 @@ In fisierul index.php ne ocupam de logarea utilizatourui (prin guest sau google-
 </html>
 ```
 
-Fisierul map.php se ocupa de legarea efectiva a tabelei de obiecte din baza de date cu vectorii ce stocheaza aceste valori in fisierele javascript.
+File map.php makes the actual link between the data extracted from the database and the arrays exsting in our application
 
 ```php
 ?php
@@ -842,8 +852,8 @@ Fisierul map.php se ocupa de legarea efectiva a tabelei de obiecte din baza de d
  ?>
 ```
 
-## 8. Restul
+## 8. The rest
 
-Celelatlte fisiere din proiect nu sunt semnificative pentru complexitatea aplicatiei, tin de formatare sau conexiuni suplimentare.
-Fiecare fisiera are totusi explicatii amanuntite prin comentarii. De asemenea am incercat sa numim variabilele cat mai clar si sa lasam
-comentarii pe alocuri pentru a usura colaborarea.
+The remaining files in the project are not about the complexity of the project; insignifficant and only takes care of fromatting and other
+useful realtions. We tried to portray a serious work-environment by adding additional comments on the sides (albeit in romanian), and naming
+variables accordingly to make the collaboratrion of the application as seamless as possible. (just like at a company)
